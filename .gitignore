@@ -110,7 +110,7 @@
 -Backup*/
 -UpgradeLog*.XML
 -
--/source/DevSkill/.vs/DevSkill
+
 
 -﻿################################################################################
 -# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
@@ -126,4 +126,4 @@
 **/*.user
 **/*.dbmdl
 **/*.jfm
-/source/DevSkill/Applications/DevSkill.Web/Logs
+
