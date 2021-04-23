@@ -25,7 +25,10 @@ namespace BitcoinPrice.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("bpiId")
+                    b.Property<Guid>("BpiId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TimeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("chartName")
@@ -34,14 +37,11 @@ namespace BitcoinPrice.Web.Migrations
                     b.Property<string>("disclaimer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("timeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("bpiId");
+                    b.HasIndex("BpiId");
 
-                    b.HasIndex("timeId");
+                    b.HasIndex("TimeId");
 
                     b.ToTable("BitCoinPrice");
                 });
@@ -52,13 +52,13 @@ namespace BitcoinPrice.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EURId")
+                    b.Property<Guid>("EURId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("GBPId")
+                    b.Property<Guid>("GBPId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("USDId")
+                    b.Property<Guid>("USDId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -174,26 +174,36 @@ namespace BitcoinPrice.Web.Migrations
                 {
                     b.HasOne("BitcoinPrice.Library.Bpi", "bpi")
                         .WithMany()
-                        .HasForeignKey("bpiId");
+                        .HasForeignKey("BpiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BitcoinPrice.Library.Time", "time")
                         .WithMany()
-                        .HasForeignKey("timeId");
+                        .HasForeignKey("TimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BitcoinPrice.Library.Bpi", b =>
                 {
                     b.HasOne("BitcoinPrice.Library.EUR", "EUR")
                         .WithMany()
-                        .HasForeignKey("EURId");
+                        .HasForeignKey("EURId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BitcoinPrice.Library.GBP", "GBP")
                         .WithMany()
-                        .HasForeignKey("GBPId");
+                        .HasForeignKey("GBPId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BitcoinPrice.Library.USD", "USD")
                         .WithMany()
-                        .HasForeignKey("USDId");
+                        .HasForeignKey("USDId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

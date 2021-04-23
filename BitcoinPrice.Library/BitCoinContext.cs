@@ -31,7 +31,11 @@ namespace BitcoinPrice.Library
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //builder.Entity<BitCoinPrice>()
+            //    .HasOne(p => p.bpi)
+            //    .WithOne(b => b.BitCoinPrice);
 
+               
 
             base.OnModelCreating(builder);
         }

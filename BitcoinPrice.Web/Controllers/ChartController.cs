@@ -1,6 +1,7 @@
 ﻿using BitcoinPrice.Library;
 using BitcoinPrice.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,12 @@ namespace BitcoinPrice.Web.Controllers
         }
         public IActionResult Index()
         {
-            //var model = new ViewModel(_bitCoinUnitOfWork);
-           var model=  _dbContext.BitCoinPrice.OrderByDescending(x => x.time.updatedISO).ToList();
-            
+            var model = _dbContext.BitCoinPrice
+                .Include(x => x.bpi.USD)
+                .Include( be => be.bpi.EUR)
+                .Include( be => be.bpi.GBP)
+                .Include(y => y.time).OrderByDescending( t => t.time.updatedISO).ToList();
+                                         
             return View(model);
         }
     }
